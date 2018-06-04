@@ -1,0 +1,20 @@
+app_article:
+    resource: "@AppBundle/Controller/ArticleController.php"
+    type:     annotation
+
+app_user:
+    resource: "@AppBundle/Controller/UserController.php"
+    type:     annotation
+
+app_category:
+    resource: "@AppBundle/Controller/CategoryController.php"
+    type:     annotation
+
+blog:
+    resource: "@BlogBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
