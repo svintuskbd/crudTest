@@ -1,0 +1,50 @@
+version: '2'
+services:
+    source:
+        image: alpine:3.6
+        volumes:
+            - ./:/var/www/mgp
+
+    database:
+        build:
+            context: ./docker/db
+            args:
+                HOST_UID: ${HOST_UID}
+        ports:
+            - "5436:5432"
+        volumes:
+            - ./var/db_data:/var/lib/postgresql/data
+        environment:
+            POSTGRES_PASSWORD: docker
+            POSTGRES_USER: crudTest
+            POSTGRES_DB: crudTest
+            PGDATA: /var/lib/postgresql/data/pgdata
+
+    symfony:
+        build:
+            context: ./docker/web
+            args:
+                HOST_UID: ${HOST_UID}
+        depends_on:
+            - source
+            - database
+        volumes_from:
+            - source
+        links:
+            - database
+        environment:
+            APPLICATION_ENV: development
+
+    nginx:
+        build: ./docker/nginx
+        volumes:
+            - ./web:/usr/share/nginx/html
+        ports:
+            - "80:80"
+        depends_on:
+            - symfony
+            - source
+        links:
+            - symfony
+        volumes_from:
+            - source
