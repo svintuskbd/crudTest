@@ -30,3 +30,8 @@ composer install
 ```bash
 ./bin/console doc:mi:mi
 ```
+
+6. Add in /etc/hosts domain name
+```bash
+crud-test.loc
+```
