@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ArticleType extends AbstractType
+class CustomType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -21,10 +21,6 @@ class ArticleType extends AbstractType
                 'label' => 'Title',
             ])
             ->add('description')
-            ->add('slug')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('content')
             ->add('submit', SubmitType::class, [
                 'label' => 'Create'
             ])
@@ -34,9 +30,9 @@ class ArticleType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => Article::class
-        ));
+//        $resolver->setDefaults(array(
+//            'data_class' => false
+//        ));
     }
 
     /**

@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
+use AppBundle\Form\ArticleType;
+use AppBundle\Form\CustomType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -36,6 +38,27 @@ class ArticleController extends Controller
     }
 
     /**
+     * Lists all article entities.
+     *
+     * @Route("/custom", name="article_icustom")
+     * @Method("GET")
+     */
+    public function customAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $articles = $em
+            ->getRepository('AppBundle:Article')
+            ->findAll();
+
+        dump(88888);
+
+        return $this->render('article/index.html.twig', array(
+            'articles' => $articles,
+        ));
+    }
+
+    /**
      * Creates a new article entity.
      *
      * @Route("/new", name="article_new")
@@ -46,8 +69,16 @@ class ArticleController extends Controller
     public function newAction(Request $request)
     {
         $article = new Article();
-        $form = $this->createForm('AppBundle\Form\ArticleType', $article);
+
+        $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
+
+        $formCustom = $this->createForm(CustomType::class);
+        $formCustom->handleRequest($request);
+
+        if ($formCustom->isSubmitted() && $formCustom->isValid()) {
+            dump($formCustom->getData());
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -60,6 +91,7 @@ class ArticleController extends Controller
         return $this->render('article/new.html.twig', array(
             'article' => $article,
             'form' => $form->createView(),
+            'formCustom' => $formCustom->createView(),
         ));
     }
 
