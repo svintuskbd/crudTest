@@ -21,7 +21,7 @@ docker-compose build
 2. Run container
 
 ```bash
-docker-compose run
+docker-compose up
 ```
 3.  Open container 
 ```bash
