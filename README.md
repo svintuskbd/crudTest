@@ -7,6 +7,11 @@ This project work with docker.
 Install the project:
 
 You must have install Docker CE.
+0. Run build and run docker containers
+   
+```bash
+   cp .env.dist .env
+```
 
 1. Build container
 

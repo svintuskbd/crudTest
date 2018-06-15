@@ -3,7 +3,7 @@ services:
     source:
         image: alpine:3.6
         volumes:
-            - ./:/var/www/mgp
+            - ./:/var/www/crudTest
 
     database:
         build:

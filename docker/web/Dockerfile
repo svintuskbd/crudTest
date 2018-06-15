@@ -37,4 +37,4 @@ RUN set -x && curl -sS https://getcomposer.org/installer | php \
 
 RUN usermod -u ${HOST_UID} www-data && groupmod -g ${HOST_UID} www-data
 
-WORKDIR "/var/www/mgp"
+WORKDIR "/var/www/crudTest"
