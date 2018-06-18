@@ -1,16 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Article creation</h1>
+    <h1>Article creation!</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-    {{ form_end(form) }}
+    <div>
+        {{ form_start(form) }}
+            {{ form_errors(form) }}
+            <div class="form-group">
+                {{ form_row(form.title) }}
+            </div>
 
+            {{ form_row(form.description) }}
+            {{ form_row(form.content) }}
 
-    {{ form_start(formCustom) }}
-        {{ form_widget(formCustom) }}
-    {{ form_end(formCustom) }}
+            {{ form_row(form.submit, { 'label': 'Submit me' }) }}
+        {{ form_end(form) }}
+    </div>
+
 
     <ul>
         <li>

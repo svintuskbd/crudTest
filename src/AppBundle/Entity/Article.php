@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping\ManyToMany;
 
 /**
@@ -39,6 +40,7 @@ class Article
     /**
      * @var string
      *
+     * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
      */
     private $slug;

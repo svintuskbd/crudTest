@@ -38,27 +38,6 @@ class ArticleController extends Controller
     }
 
     /**
-     * Lists all article entities.
-     *
-     * @Route("/custom", name="article_icustom")
-     * @Method("GET")
-     */
-    public function customAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $articles = $em
-            ->getRepository('AppBundle:Article')
-            ->findAll();
-
-        dump(88888);
-
-        return $this->render('article/index.html.twig', array(
-            'articles' => $articles,
-        ));
-    }
-
-    /**
      * Creates a new article entity.
      *
      * @Route("/new", name="article_new")
@@ -73,17 +52,9 @@ class ArticleController extends Controller
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
-        $formCustom = $this->createForm(CustomType::class);
-        $formCustom->handleRequest($request);
-
-        if ($formCustom->isSubmitted() && $formCustom->isValid()) {
-            dump($formCustom->getData());
-        }
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($article);
-            $em->flush();
+            $articleManager = $this->get("blog.article_manager.service");
+            $articleManager->articleCreate($article);
 
             return $this->redirectToRoute('article_show', array('id' => $article->getId()));
         }
@@ -91,7 +62,6 @@ class ArticleController extends Controller
         return $this->render('article/new.html.twig', array(
             'article' => $article,
             'form' => $form->createView(),
-            'formCustom' => $formCustom->createView(),
         ));
     }
 

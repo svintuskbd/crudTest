@@ -10,6 +10,8 @@ parameters:
     locale: en
 
 framework:
+    templating:
+        engines: ['twig']
     #esi: ~
     translator: { fallbacks: ['%locale%'] }
     secret: '%secret%'
@@ -90,3 +92,18 @@ doctrine_migrations:
     name: Application Migrations
     organize_migrations: false # Version >= 1.2, possible values are: "BY_YEAR", "BY_YEAR_AND_MONTH", false
     custom_template: ~ # Version >= 1.2, path to your custom migrations template
+
+stof_doctrine_extensions:
+    default_locale: en
+    translation_fallback: true
+    orm:
+        default:
+            sluggable: true
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+    firewall_name: main
+    user_class: AppBundle\Entity\User
+    from_email:
+        address: "%mailer_user%"
+        sender_name: "%mailer_user%"
