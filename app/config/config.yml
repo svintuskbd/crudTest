@@ -42,14 +42,14 @@ twig:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   pdo_pgsql
+        driver:   pdo_mysql
         host:     '%database_host%'
         port:     '%database_port%'
         dbname:   '%database_name%'
         user:     '%database_user%'
         password: '%database_password%'
         charset: UTF8
-        server_version: 10.0
+        server_version: 5.7
 
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
@@ -107,3 +107,9 @@ fos_user:
     from_email:
         address: "%mailer_user%"
         sender_name: "%mailer_user%"
+
+sonata_block:
+    blocks:
+        # enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts: [admin]
